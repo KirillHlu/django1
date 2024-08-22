@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}" />
+  </head>
+  <body>
+  <aside>
+      <ul>
+            <a href="/about" class="a1">About</a>
+            <a href="{% url 'news-home' %}" class="a1">Main</a>
+            <a href="/create" class="a1">Create</a>
+    </ul>
+  </aside>
+  <div class="main-content">
+      <div class="input1"><input type="text" id="searchInput" placeholder="Search" /></div>
+        {% for el in news %}
+      <div class="messages">
+         <h1>{{ el.title }}</h1>
+         <h3>{{ el.anons }}</h3>
+          <a class="a2" href="{% url 'news-detail' el.id%}">Read more</a>
+         <h4>{{ el.date }}</h4>
+      </div>
+      <script src="{% static 'main/js/first.js' %}" defer></script>
+        {% endfor %}
+    </div>
+  </body>
+</html>
