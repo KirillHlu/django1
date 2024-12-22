@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта с отмеченными точками</title>
+    <style>
+        /* Установка размера карты */
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQrffujdvh11V4akTIs61s5cqqOCAZoc8&callback=initMap" async defer></script>
+    <script>
+        function initMap() {
+            // Инициализация карты
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 55.7558, lng: 37.6173 }, // Координаты Москвы
+                zoom: 5,
+            });
+
+            // Массив с координатами точек
+            const points = [
+                { lat: 55.7558, lng: 37.6173, name: 'Москва' },
+                { lat: 59.9343, lng: 30.3351, name: 'Санкт-Петербург' },
+                { lat: 56.8389, lng: 60.6057, name: 'Екатеринбург' },
+                { lat: 55.6021, lng: 49.6633, name: 'Казань' },
+                { lat: 54.7381, lng: 55.9681, name: 'Уфа' }
+            ];
+
+            // Добавление маркеров на карту
+            points.forEach(point => {
+                const marker = new google.maps.Marker({
+                    position: { lat: point.lat, lng: point.lng },
+                    map: map,
+                    title: point.name
+                });
+
+                // Добавление всплывающего окна с названием места
+                const infowindow = new google.maps.InfoWindow({
+                    content: point.name
+                });
+
+                marker.addListener('click', () => {
+                    infowindow.open(map, marker);
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Карта с отмеченными точками</h1>
+    <div id="map"></div>
+
+</body>
+</html>
